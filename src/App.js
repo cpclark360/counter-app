@@ -16,6 +16,7 @@ class App extends Component {
 
   constructor() {
     super();
+    console.log("App - Constructor");
   }
 
   handleIncrement = counter => {
