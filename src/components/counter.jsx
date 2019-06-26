@@ -2,6 +2,19 @@ import React, { Component } from "react";
 
 // cc + Tab
 class Counter extends Component {
+  componentDidUpdate(prevProps, prevState) {
+    console.log("prevProps ", prevProps);
+    console.log("prevState ", prevState);
+    // get Ajax updates based on changes in Props or State
+    if (prevProps.counter.value !== this.props.counter.value) {
+      // Ajax call and get new data from the server
+    }
+  }
+
+  componentWillMount() {
+    console.log("Counter - Unmout");
+    // clean up timers and etc before unmounting to prevent memory leaks
+  }
   // state = {
   //   count: this.props.value,
   //   tags: ["tag1", "tag2", "tag3"]
@@ -35,28 +48,33 @@ class Counter extends Component {
   render() {
     console.log("props", this.props);
     return (
-      <div>
-        <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
-        <button
-          onClick={() => this.props.onIncrement(this.props.counter)}
-          className="btn btn-secondary btn-sm"
-        >
-          Increment
-        </button>
+      <div className="row">
+        <div className="col-1">
+          <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
+        </div>
+        <div className="col">
+          <button
+            onClick={() => this.props.onIncrement(this.props.counter)}
+            className="btn btn-secondary btn-sm"
+          >
+            +
+          </button>
 
-        <button
-          onClick={() => this.props.onDecrement(this.props.counter)}
-          className="btn btn-secondary btn-sm"
-        >
-          Decrement
-        </button>
+          <button
+            onClick={() => this.props.onDecrement(this.props.counter)}
+            className="btn btn-secondary btn-sm m-2"
+            disabled={this.props.counter.value === 0 ? "disabled" : ""}
+          >
+            -
+          </button>
 
-        <button
-          onClick={() => this.props.onDelete(this.props.counter.id)}
-          className="btn btn-danger btn-sm m-2"
-        >
-          Delete
-        </button>
+          <button
+            onClick={() => this.props.onDelete(this.props.counter.id)}
+            className="btn btn-danger btn-sm"
+          >
+            Delete
+          </button>
+        </div>
       </div>
     );
   }
